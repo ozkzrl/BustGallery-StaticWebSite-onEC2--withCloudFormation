@@ -3,8 +3,8 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: |
   This CloudFormation Template was written for running Kittens Carousel Static Website on EC2. 
   Kittens Carousel Static Website will be deployed on Amazon Linux 2023 EC2 Instance with custom 
-  security group which allows http connections on port 80 and ssh port 22 from anywhere. Kittens Carousel Static Website
-  is downloaded from my Public Github repository, then deployed on Apache Web Server.
+  security group which allows HTTP connections on port 80 and SSH on port 22 from anywhere. 
+  The website is downloaded from my Public GitHub repository and deployed on Apache Web Server.
 
 Parameters:
   myKeyPair:
@@ -17,16 +17,15 @@ Parameters:
     Type: String
     Default: t2.micro
     AllowedValues:
-         - t2.micro
-         - t3.micro
-         - t3.small
+      - t2.micro
+      - t3.micro
+      - t3.small
 
   LatestAmiId:
     Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
     Default: '/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64'
             
 Resources: 
-  
   myWebServer:
     Type: AWS::EC2::Instance
     Properties:
@@ -34,7 +33,7 @@ Resources:
       InstanceType: !Ref myInstanceType
       KeyName: !Ref myKeyPair
       SecurityGroupIds: 
-        - !Ref mySecGrp #!GetAtt mySecGrp.GroupId
+        - !GetAtt mySecGrp.GroupId
       Tags: 
         - Key: Name
           Value: !Sub Web Server of ${AWS::StackName} Stack
@@ -45,8 +44,7 @@ Resources:
         systemctl start httpd
         systemctl enable httpd
         cd /var/www/html
-        FOLDER='https://raw.githubusercontent.com/ozkzrl/BustGallery-StaticWebSite-onEC2--withCloudFormation/refs/heads/main/Static-Web/'
-
+        FOLDER='https://raw.githubusercontent.com/ozkzrl/BustGallery-StaticWebSite-onEC2--withCloudFormation/main/Static-Web'
         wget ${FOLDER}/index.html
         wget ${FOLDER}/1.jpg
         wget ${FOLDER}/2.jpg
@@ -54,30 +52,29 @@ Resources:
         wget ${FOLDER}/4.jpg
         wget ${FOLDER}/5.jpg
         wget ${FOLDER}/logo.png
-    
 
   mySecGrp:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Enable SSH and HTTP # Required
+      GroupDescription: Enable SSH and HTTP
       SecurityGroupIngress: 
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
           CidrIp: 0.0.0.0/0
-          Description: Enable http
+          Description: Enable HTTP
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
           CidrIp: 0.0.0.0/0
-          Description: Enable ssh
+          Description: Enable SSH
       Tags: 
         - Key: Name
-          Value: ssh_hhtp_aws11
+          Value: ssh_http_aws11
 
 Outputs:
   webSiteURL:
-    Description: URL of website
+    Description: URL of the website
     Value: !Sub
       - http://${publicIP}
-      - publicIP: !GetAtt myWebServer.publicIp
+      - publicIP: !GetAtt myWebServer.PublicIp
