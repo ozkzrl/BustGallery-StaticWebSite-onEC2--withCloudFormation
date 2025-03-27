@@ -1,7 +1,7 @@
-# Project-101 : Kittens Carousel Static Website deployed on AWS EC2 using Cloudformation
+# Project-101 :Özkan's Bust Gallery Website deployed on AWS EC2 using Cloudformation
 
 ## Description
-Kittens Carousel is a static website application deployed with Apache Web Server on AWS Elastic Compute Cloud (EC2) Instance using AWS Cloudformation Service. 
+Bust Gallery is a static website application deployed with Apache Web Server on AWS Elastic Compute Cloud (EC2) Instance using AWS Cloudformation Service. 
 
 ## Problem Statement
 
@@ -40,14 +40,16 @@ Kittens Carousel is a static website application deployed with Apache Web Server
 |----cfn-template.yml  # To be delivered by students (Cloudformation template)
 |----static-web
         |----index.html  # Given to the students (HTML file)
-        |----cat0.jpg    # Given to the students (image file)
-        |----cat1.jpg    # Given to the students (image file)
-        |----cat2.jpg    # Given to the students (image file)
-```
+        |----1.jpg    # Given to the students (image file)
+        |----2.jpg    # Given to the students (image file)
+        |----3.jpg    # Given to the students (image file)
+        |----4.jpg    # Given to the students (image file)
+        |----5.jpg    # Given to the students (image file)
+-----
 
 ## Expected Outcome
 
-![Project 101 : Kittens Carousel Application Snapshot](./project-101-snapshot.png)
+![Project 101 : Bust Gallery Application Snapshot](./project-101-snapshot.png)
 
 ### At the end of the project, following topics are to be covered;
 
